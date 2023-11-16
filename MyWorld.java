@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class MyWorld extends World
 {
-
+    int time = 0;
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -18,17 +18,29 @@ public class MyWorld extends World
         // Create a new world with 1000x700 cells with a cell size of 1x1 pixels.
         super(1000, 800, 1);
         getBackground();
-        addObject(new Protagonista(), 68, 408);
-        addObject(new Serra(), 491, 409);
-        addObject(new Serra(), Greenfoot.getRandomNumber(1001), Greenfoot.getRandomNumber(801));
         prepare();
     }
-    
+
     /**
      * Prepare the world for the start of the program.
      * That is: create the initial objects and add them to the world.
      */
     private void prepare()
     {
+        addObject(new Protagonista(), 68, 408);
+        addObject(new Serra(), 500, 400);
+        addObject(new Coins(), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(800));
+        addObject(new Coins(), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(800));
+        addObject(new Coins(), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(800));
+        addObject(new Coins(), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(800));
+        addObject(new Coins(), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(800));
+    }
+
+    public void act(){
+        Greenfoot.playSound("DiscRoomOST.mp3");
+        time ++;
+        if (time % 60 == 0){
+            addObject(new Serra(), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(800));
+        }
     }
 }

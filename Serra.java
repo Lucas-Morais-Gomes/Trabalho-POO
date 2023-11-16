@@ -14,10 +14,17 @@ public class Serra extends Actor
      */
     public void act()
     {
-        // Add your action code here.
         move(10);
         if(Greenfoot.getRandomNumber(10) >= 5 ){
             turn(Greenfoot.getRandomNumber(90)-45);
-            }
+        }
+        if(isAtEdge()){
+            turn(45);
+        }
+    }
+
+    public Serra(){
+        int size = 170;
+        getImage().scale(getImage().getWidth() - size, getImage().getHeight() - size);
     }
 }

@@ -14,28 +14,65 @@ public class Protagonista extends Actor
      */
     public void act()
     {
-        // Add your action code here.
+        Andar();
+        TocarCoins();
+        Perdeu();
+    }
+
+    public void Andar(){
         if (Greenfoot.isKeyDown("left")){
             setImage("ProtagonistaEsquerda.png");
-            move(-10);
-        } if (Greenfoot.isKeyDown("right")){
-            setImage("ProtagonistaDireita.png");
-            move(10);
-        } if (Greenfoot.isKeyDown("up")){
-            turn(-5);
-        } if (Greenfoot.isKeyDown("down")){
-            turn(5);
-        } if (Greenfoot.isKeyDown("shift")){
-            move(15);
+            setLocation(getX() - 10, getY());
         } 
-        
-        Tocar();
+        if (Greenfoot.isKeyDown("right")){
+            setImage("ProtagonistaDireita.png");
+            setLocation(getX() + 10, getY());
+        } 
+        if (Greenfoot.isKeyDown("up")){
+            setLocation(getX(), getY() - 10);
+        } 
+        if (Greenfoot.isKeyDown("down")){
+            setLocation(getX(), getY() + 10);
+        }
+    }
+
+    public boolean TocarSerra(){
+        if (isTouching(Serra.class)){
+            return true;
+        } else {
+            return false;
+        }
     }
     
-    public void Tocar(){
-        if (isTouching(Serra.class)){
+    int cont = 1;
+    public boolean TocarCoins(){
+        if (getOneIntersectingObject(Coins.class) != null){
+            getWorld().removeObject(getOneIntersectingObject(Coins.class));
+            Greenfoot.playSound("collectcoin.mp3");
+            cont = cont + 1;
+            }
+        if(cont == 5){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public void Ganhou(){
+        if (TocarCoins() == true){
+            getWorld().addObject(new VocePerdeu(), 500, 400);
+            getWorld().showText("MEUS PARABÉNS VOCÊ VENCEU", 500, 600);
+            Greenfoot.playSound("gameover.mp3");
+            Greenfoot.stop(); 
+        }
+    }
+    
+    public void Perdeu(){
+        if (TocarSerra() == true){
+            getWorld().addObject(new VocePerdeu(), 500, 400);
             getWorld().showText("GAME OVER - VOCÊ PERDEU!!", 500, 600);
-            Greenfoot.stop();        
+            Greenfoot.playSound("gameover.mp3");
+            Greenfoot.stop(); 
         }
     }
 }
