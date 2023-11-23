@@ -8,17 +8,24 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Coins extends Actor
 {
+    GreenfootImage[] CoinAnima = new GreenfootImage[10];
+    int animCont = 0;
+    
+    public Coins(){
+        CoinsAnimations();
+    }
     /**
      * Act - do whatever the Coins wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()
     {
-
+        setImage(CoinAnima[animCont++ % 10]);
     }
-
-    public Coins(){
-        int tamanho = 500;
-        getImage().scale(getImage().getWidth() - tamanho, getImage().getHeight() - tamanho);
+    public void CoinsAnimations(){
+        for (int i = 0; i < 10; i++){
+            String filename = "Gold" + i + ".png";
+            CoinAnima[i] = new GreenfootImage(filename);
+            }
     }
 }

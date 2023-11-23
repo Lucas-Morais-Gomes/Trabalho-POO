@@ -15,8 +15,9 @@ public class Protagonista extends Actor
     public void act()
     {
         Andar();
-        TocarCoins();
+        Ganhou();
         Perdeu();
+        SalaPremio();
     }
 
     public void Andar(){
@@ -44,12 +45,15 @@ public class Protagonista extends Actor
         }
     }
     
-    int cont = 1;
+    int cont = 0;
     public boolean TocarCoins(){
         if (getOneIntersectingObject(Coins.class) != null){
             getWorld().removeObject(getOneIntersectingObject(Coins.class));
             Greenfoot.playSound("collectcoin.mp3");
-            cont = cont + 1;
+            cont ++;
+            
+            Counter counter = (Counter) getWorld().getObjects(Counter.class).get(0);
+            counter.add(1);
             }
         if(cont == 5){
             return true;
@@ -57,12 +61,23 @@ public class Protagonista extends Actor
             return false;
         }
     }
+    public void SalaPremio(){
+        if(TocarCoins() == true){
+            Greenfoot.setWorld(new MyWorld2());
+        }
+    }
+    public boolean TocarPremio(){
+        if(isTouching(premio.class)){
+            return true;
+        } else{
+            return false;
+        }
+    }
     
     public void Ganhou(){
-        if (TocarCoins() == true){
-            getWorld().addObject(new VocePerdeu(), 500, 400);
-            getWorld().showText("MEUS PARABÉNS VOCÊ VENCEU", 500, 600);
-            Greenfoot.playSound("gameover.mp3");
+        if (TocarPremio() == true){
+            getWorld().addObject(new VoceVenceu(), 500, 400);
+            Greenfoot.playSound("vencedor.mp3");
             Greenfoot.stop(); 
         }
     }

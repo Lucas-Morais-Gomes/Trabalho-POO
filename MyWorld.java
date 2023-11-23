@@ -8,14 +8,12 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class MyWorld extends World
 {
-    int time = 0;
     /**
      * Constructor for objects of class MyWorld.
      * 
      */
     public MyWorld()
     {    
-        // Create a new world with 1000x700 cells with a cell size of 1x1 pixels.
         super(1000, 800, 1);
         getBackground();
         prepare();
@@ -28,19 +26,29 @@ public class MyWorld extends World
     private void prepare()
     {
         addObject(new Protagonista(), 68, 408);
-        addObject(new Serra(), 500, 400);
-        addObject(new Coins(), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(800));
-        addObject(new Coins(), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(800));
-        addObject(new Coins(), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(800));
-        addObject(new Coins(), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(800));
-        addObject(new Coins(), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(800));
+        addObject(new Serra(), 494, 410);
+        Counter counter1 = new Counter();
+        addObject(counter1,60,37);
+        
     }
-
+    
+    int contSerra = 0;
+    int timeSerra = 0;
+    int contCoin = 0;
+    int timeCoin = 0;
     public void act(){
-        Greenfoot.playSound("DiscRoomOST.mp3");
-        time ++;
-        if (time % 60 == 0){
-            addObject(new Serra(), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(800));
+        timeSerra ++;
+        if (timeSerra % 60 == 0 && contSerra < 5){
+            addObject(new Serra(), Greenfoot.getRandomNumber(870), Greenfoot.getRandomNumber(800));
+            contSerra ++;
         }
+        
+        timeCoin ++;
+        if (timeCoin % 60 == 0 && contCoin < 5){
+            addObject(new Coins(), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(800));
+            contCoin ++;
+        }
+        
+        
     }
 }
